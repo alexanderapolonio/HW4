@@ -1,60 +1,57 @@
-document.addEventListener("DOMContentLoaded", function (event) {
-
-// document.getElementById("show").addEventListener("click", function(){
-
 function getCheckedValue(allExercise) {
-    let radios =document.getElementById(allExercise);
+    let radios =document.getElementsByName(allExercise);
     for(i=0; i<radios.length; i++) {
         if (radios[i].checked) {
+            console.log(radios[i].value);
             return radios[i].value;
         }
     }
     return null;
 }
-});
 
 exerArray =[];
 
-let ExerItem =function(pExerName, pMinutes, pCalories) {
+let ExerItem =function(pExerName, pMinutes,pBurned) {
     this.exerName =pExerName;
     this.minutes =parseInt(pMinutes);
-    this.calories =parseInt(pCalories);
+    this.burned =pBurned;
 };
-
-exerArray.push(new ExerItem("Sit Ups", 10));
-exerArray.push(new ExerItem("Push Ups", 15));
-exerArray.push(new ExerItem("Jump Rope", 18));
 
 function add(){
     let totalCalories =0;
-    let totalExerName =document.getElementById("exerName").value;
-    let totalExerMins =document.getElementById("minutes").value;
-    exerArray.push(new ExerItem(totalExerName,totalExerMins))
-
-    for(i =0; i<exerArray.length; i++) {
-        totalCalories =total*exerArray[i].minutes;
+    let exerName =getCheckedValue("exercise");
+    let exerMins =document.getElementById("minutes").value;
+        let calories =0;
+        if(exerName ==="Situps"){
+            calories =10;
+        }
+        else if(exerName ==="Pushups"){
+            calories =15;
+        }
+        else if(exerName ==="Jumprope"){
+            calories =18;
     }
-    document.getElementById("totalMinutes").value =total;
-}
+    totalCalories =exerMins*calories;
+    exerArray.push(new ExerItem(exerName,exerMins, totalCalories));
+ }
 
 function mostBurned() {
     let winner =0;
     for(i=0; i<exerArray.length; i++) {
-       if (exerArray[i].minutes>exerArray[winner].minutes)
+       if (exerArray[i].burned>exerArray[winner].burned)
        {
         winner =i;
        }
     }
-    document.getElementById("whichOutput").value =exerArray[winner].exerName;
+    document.getElementById("mostburnedcalories").value =exerArray[winner].exerName;
 }
 
 function show(){
     let message ="exercise minutes mostburned\n";
+    console.log(exerArray);
        
     for (i=0; i<exerArray.length;i++) {
-     message =message + PersonArray[i].Exercise +" "+ExerArray[i].minutes+" "+ExerArray[i].mostburned+"\n";
+     message =message + exerArray[i].exerName +" "+exerArray[i].minutes+" "+exerArray[i].burned+"\n";
      }
-     document.getElementById("output").value =message;
+     document.getElementById("output").innerText=message;
      };
-
-
