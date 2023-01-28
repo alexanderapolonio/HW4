@@ -22,13 +22,13 @@ function add(){
     let exerName =getCheckedValue("exercise");
     let exerMins =document.getElementById("minutes").value;
         let calories =0;
-        if(exerName ==="Situps"){
+        if(exerName ==="Sit Ups"){
             calories =10;
         }
-        else if(exerName ==="Pushups"){
+        else if(exerName ==="Push Ups"){
             calories =15;
         }
-        else if(exerName ==="Jumprope"){
+        else if(exerName ==="Jump Rope"){
             calories =18;
     }
     totalCalories =exerMins*calories;
@@ -43,15 +43,21 @@ function mostBurned() {
         winner =i;
        }
     }
-    document.getElementById("mostburnedcalories").value =exerArray[winner].exerName;
+    document.getElementById("mostburnedcalories").value =exerArray[winner].exerName + " " + exerArray[winner].burned;
 }
 
 function show(){
-    let message ="exercise minutes mostburned\n";
+    //let message ="exercise minutes mostburned\n";
     console.log(exerArray);
+
+    let theList = document.getElementById("output");
+    theList.innerHTML = "";
        
     for (i=0; i<exerArray.length;i++) {
-     message =message + exerArray[i].exerName +" "+exerArray[i].minutes+" "+exerArray[i].burned+"\n";
+     //message =message + exerArray[i].exerName +" "+exerArray[i].minutes+" "+exerArray[i].burned+"\n";
+        var myLi = document.createElement("li");
+        myLi.innerHTML = exerArray[i].exerName + " " + exerArray[i].minutes + " minutes " + exerArray[i].burned + " calories";
+        theList.appendChild(myLi);
      }
-     document.getElementById("output").innerText=message;
+     //document.getElementById("output").innerText=message;
      };
